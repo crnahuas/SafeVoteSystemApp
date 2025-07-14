@@ -19,5 +19,16 @@ public class PrimesList extends ArrayList<Integer> {
         return true;
     }
 
+    // Agrega un número solo si es primo, si no lanza excepción
+    @Override
+    public boolean add(Integer number) {
+        if (isPrime(number)) {
+            System.out.println("Número primo agregado: " + number);
+            return super.add(number);
+        } else {
+            throw new IllegalArgumentException("El número " + number + " no es primo.");
+        }
+    }
+
 
 }
