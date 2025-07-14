@@ -19,7 +19,7 @@ public class PrimesList extends ArrayList<Integer> {
         return true;
     }
 
-    // Agrega un número solo si es primo, si no lanza excepción
+    // Agrega un número solo si es primo.
     @Override
     public boolean add(Integer number) {
         if (isPrime(number)) {
@@ -28,6 +28,24 @@ public class PrimesList extends ArrayList<Integer> {
         } else {
             throw new IllegalArgumentException("El número " + number + " no es primo.");
         }
+    }
+    
+    
+    // Elimina un número solo si existe
+    @Override
+    public boolean remove(Object number) {
+        if (this.contains(number)) {
+            System.out.println("Número eliminado: " + number);
+            return super.remove(number);
+        } else {
+            System.out.println("No se encontró el número: " + number);
+            return false;
+        }
+    }
+
+    // Retorna la cantidad total de primos en la lista
+    public int getPrimesCount() {
+        return this.size();
     }
 
 
