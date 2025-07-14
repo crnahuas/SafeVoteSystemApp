@@ -7,8 +7,8 @@ import java.util.concurrent.BlockingQueue;
 // Verifica si son primos y los agrega a la lista PrimesList.
 public class PrimesConsumerThread implements Runnable {
 
-    private final BlockingQueue<Integer> queue; // Cola de números a procesar
-    private final PrimesList primesList;        // Lista donde se almacenan los primos
+    private final BlockingQueue<Integer> queue; // Cola de números a procesar.
+    private final PrimesList primesList;        // Lista donde se almacenan los primos.
 
     public PrimesConsumerThread(BlockingQueue<Integer> queue, PrimesList primesList) {
         this.queue = queue;
