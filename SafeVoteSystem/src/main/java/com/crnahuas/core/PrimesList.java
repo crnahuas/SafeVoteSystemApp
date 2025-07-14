@@ -6,14 +6,14 @@ import java.util.ArrayList;
 // Restringe la inserción de no primos.
 public class PrimesList extends ArrayList<Integer> {
 
-    // Verifica si un número es primo
+    // Verifica si un número es primo.
     public boolean isPrime(int number) {
         if (number < 2) {
-            return false; // No hay primos menores que 2
+            return false; // No hay primos menores que 2.
         }
         for (int i = 2; i <= Math.sqrt(number); i++) {
             if (number % i == 0) {
-                return false; // Tiene divisor → no es primo
+                return false; // Tiene divisor → no es primo.
             }
         }
         return true;
@@ -31,7 +31,7 @@ public class PrimesList extends ArrayList<Integer> {
     }
     
     
-    // Elimina un número solo si existe
+    // Elimina un número solo si existe.
     @Override
     public boolean remove(Object number) {
         if (this.contains(number)) {
@@ -43,7 +43,7 @@ public class PrimesList extends ArrayList<Integer> {
         }
     }
 
-    // Retorna la cantidad total de primos en la lista
+    // Retorna la cantidad total de primos en la lista.
     public int getPrimesCount() {
         return this.size();
     }

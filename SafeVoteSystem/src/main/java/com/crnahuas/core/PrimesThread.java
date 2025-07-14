@@ -5,8 +5,8 @@ import java.util.Random;
 //Hilo que genera y agrega números primos a una lista compartida.
 public class PrimesThread implements Runnable {
 
-    private final PrimesList primesList; // Lista compartida entre hilos
-    private final int intentos;          // Cantidad de intentos para generar primos
+    private final PrimesList primesList; // Lista compartida entre hilos.
+    private final int intentos;          // Cantidad de intentos para generar primos.
     private final Random random;
 
     public PrimesThread(PrimesList primesList, int intentos) {
@@ -18,9 +18,9 @@ public class PrimesThread implements Runnable {
     @Override
     public void run() {
         for (int i = 0; i < intentos; i++) {
-            int numero = random.nextInt(10000); // Genera número aleatorio
+            int numero = random.nextInt(10000); // Genera número aleatorio.
 
-            // Verifica si es primo usando PrimesList
+            // Verifica si es primo usando PrimesList.
             if (primesList.isPrime(numero)) {
                 synchronized (primesList) {
                     try {
@@ -33,7 +33,7 @@ public class PrimesThread implements Runnable {
                 System.out.println("Número descartado no es primo: " + numero);
             }
 
-            // Espera breve
+            // Espera breve.
             try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {
