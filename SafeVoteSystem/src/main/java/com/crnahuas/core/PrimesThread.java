@@ -1,45 +1,68 @@
 package com.crnahuas.core;
 
+import com.crnahuas.concurrency.PrimeMonitor;
 import java.util.Random;
 
 //Hilo que genera y agrega números primos a una lista compartida.
 public class PrimesThread implements Runnable {
 
-    private final PrimesList primesList; // Lista compartida entre hilos.
-    private final int intentos;          // Cantidad de intentos para generar primos.
-    private final Random random;
+    private final PrimesList lista;
+    private final PrimeMonitor monitor;
+    private final int cantidad;
+    private final boolean usaMonitor;
 
-    public PrimesThread(PrimesList primesList, int intentos) {
-        this.primesList = primesList;
-        this.intentos = intentos;
-        this.random = new Random();
+    // Constructor para uso con PrimesList
+    public PrimesThread(PrimesList lista, int cantidad) {
+        this.lista = lista;
+        this.monitor = null;
+        this.cantidad = cantidad;
+        this.usaMonitor = false;
+    }
+
+    // Constructor para uso con PrimeMonitor
+    public PrimesThread(PrimeMonitor monitor, int cantidad) {
+        this.lista = null;
+        this.monitor = monitor;
+        this.cantidad = cantidad;
+        this.usaMonitor = true;
     }
 
     @Override
     public void run() {
-        for (int i = 0; i < intentos; i++) {
-            int numero = random.nextInt(10000); // Genera número aleatorio.
+        Random random = new Random();
+        int generados = 0;
 
-            // Verifica si es primo usando PrimesList.
-            if (primesList.isPrime(numero)) {
-                synchronized (primesList) {
-                    try {
-                        primesList.add(numero);
-                    } catch (IllegalArgumentException ex) {
-                        System.out.println("Error " + ex.getMessage());
-                    }
+        while (generados < cantidad && !Thread.currentThread().isInterrupted()) {
+            int numero = 2 + random.nextInt(100);
+
+            if (usaMonitor) {
+                try {
+                    monitor.publicarNumero(numero);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    System.out.println("El hilo productor fue detenido mientras intentaba enviar un número.");
+                    break;
                 }
             } else {
-                System.out.println("Número descartado no es primo: " + numero);
+                if (lista.isPrime(numero)) {
+                    synchronized (lista) {
+                        lista.add(numero);
+                        System.out.println("Número primo agregado: " + numero);
+                    }
+                } else {
+                    System.out.println("No es primo: " + numero);
+                }
             }
 
-            // Espera breve.
+            generados++;
+
             try {
-                Thread.sleep(10);
+                Thread.sleep(80);
             } catch (InterruptedException e) {
-                System.out.println("Error el hilo fue interrumpido.");
                 Thread.currentThread().interrupt();
+                System.out.println("El hilo productor fue detenido mientras esperaba.");
+                break;
             }
         }
     }
-}
+} 
