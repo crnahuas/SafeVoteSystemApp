@@ -1,8 +1,0 @@
-Mensaje: Voto cifrado: Usuario A | Código Primo: 2
-Mensaje: Voto cifrado: Usuario B | Código Primo: 3
-Mensaje: Voto cifrado: Usuario C | Código Primo: 5
-Mensaje: Voto cifrado: Usuario D | Código Primo: 11
-Mensaje: Voto cifrado: Usuario E | Código Primo: 17
-Mensaje: Voto cifrado: Usuario F | Código Primo: 19
-Mensaje: Voto cifrado: Usuario G | Código Primo: 23
-Mensaje: Voto cifrado: Usuario H | Código Primo: 29
